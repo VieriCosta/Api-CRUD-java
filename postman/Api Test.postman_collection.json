@@ -1,0 +1,70 @@
+{
+  "info": {
+    "name": "Api Test",
+    "_postman_id": "c7c4a9a0-aaaa-bbbb-cccc-ddddeeefff00",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Listar todos",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/todos"
+      }
+    },
+    {
+      "name": "Criar todo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\":\"Estudar Java\"}"
+        },
+        "url": "{{baseUrl}}/api/todos"
+      }
+    },
+    {
+      "name": "Buscar por id",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/todos/1"
+      }
+    },
+    {
+      "name": "Atualizar todo",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"done\":true}"
+        },
+        "url": "{{baseUrl}}/api/todos/1"
+      }
+    },
+    {
+      "name": "Apagar todo",
+      "request": {
+        "method": "DELETE",
+        "url": "{{baseUrl}}/api/todos/1"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
