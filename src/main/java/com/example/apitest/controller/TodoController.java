@@ -8,6 +8,10 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Sort;
 
 import java.net.URI;
 import java.util.List;
@@ -22,9 +26,21 @@ public class TodoController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<Todo> list() {
+    // Listar todos sem filtro (sem paginação)
+    @GetMapping("/all")
+    public List<Todo> listAll() {
         return service.listAll();
+    }
+
+    // Listagem com filtros e paginação
+    @GetMapping
+    public Page<Todo> list(
+            @RequestParam(required = false) Boolean done,
+            @RequestParam(required = false) String title,
+            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable
+    ) {
+        return service.search(done, title, pageable);
     }
 
     @GetMapping("/{id}")

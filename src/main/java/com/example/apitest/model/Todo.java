@@ -2,6 +2,7 @@ package com.example.apitest.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import jakarta.persistence.PreUpdate;
 
 @Entity
 @Table(name = "todos")
@@ -17,6 +18,9 @@ public class Todo {
     @Column(nullable = false)
     private boolean done = false;
 
+    @Column
+    private LocalDateTime updatedAt;
+
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
@@ -24,6 +28,11 @@ public class Todo {
 
     public Todo(String title) {
         this.title = title;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 
     @PrePersist

@@ -4,6 +4,8 @@ import com.example.apitest.dto.UpdateTodoRequest;
 import com.example.apitest.exception.NotFoundException;
 import com.example.apitest.model.Todo;
 import com.example.apitest.repository.TodoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,5 +53,19 @@ public class TodoService {
             throw new NotFoundException("Todo id " + id + " não encontrado");
         }
         repository.deleteById(id);
+    }
+
+    public Page<Todo> search(Boolean done, String title, Pageable pageable) {
+        boolean hasTitle = (title != null && !title.isBlank());
+        if (done != null && hasTitle) {
+            return repository.findByDoneAndTitleContainingIgnoreCase(done, title, pageable);
+        }
+        if (done != null) {
+            return repository.findByDone(done, pageable);
+        }
+        if (hasTitle) {
+            return repository.findByTitleContainingIgnoreCase(title, pageable);
+        }
+        return repository.findAll(pageable);
     }
 }
