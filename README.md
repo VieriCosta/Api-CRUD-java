@@ -1,43 +1,89 @@
-# API Test (Java + Spring Boot)
+API Test (Java + Spring Boot)
+API REST simples de To-Do, ideal para prática de testes unitários, de camada web e de integração.
 
-API REST simples de *To-Do* para você praticar **testes** (unitário, de camada web e integração).
+🚀 Requisitos
+JDK 17+
+Maven 3.9+
+(Opcional) IntelliJ IDEA Community ou outra IDE de sua preferência
 
-## Requisitos
-- JDK 17+
-- Maven 3.9+
-- (Opcional) IntelliJ IDEA Community
+⚡ Como rodar a API
+No terminal, dentro do diretório do projeto:
 
-## Rodar a API
-```bash
+bash
+Copiar
+Editar
 mvn spring-boot:run
-```
-API sobe em `http://localhost:8080`.
+A API será iniciada em:
 
-## Endpoints principais
-- `GET /api/todos` – listar
-- `GET /api/todos/{id}` – buscar por id
-- `POST /api/todos` – criar (body: `{ "title": "Estudar Java" }`)
-- `PUT /api/todos/{id}` – atualizar (body opcional: `{ "title": "...", "done": true }`)
-- `DELETE /api/todos/{id}` – remover
+arduino
+Copiar
+Editar
+http://localhost:8080
+🔗 Endpoints principais
+Método	Endpoint	Descrição	Body
+GET	/api/todos	Listar todos os To-Dos	-
+GET	/api/todos/{id}	Buscar To-Do por ID	-
+POST	/api/todos	Criar novo To-Do	{ "title": "Estudar Java" }
+PUT	/api/todos/{id}	Atualizar To-Do	{ "title": "...", "done": true } (opcional)
+DELETE	/api/todos/{id}	Remover To-Do	-
 
-### Exemplos com curl
-```bash
-curl -X POST http://localhost:8080/api/todos -H "Content-Type: application/json" -d '{"title":"Estudar Java"}'
+💻 Exemplos com curl
+Criar um To-Do:
+
+bash
+Copiar
+Editar
+curl -X POST http://localhost:8080/api/todos \
+-H "Content-Type: application/json" \
+-d '{"title":"Estudar Java"}'
+Listar To-Dos:
+
+bash
+Copiar
+Editar
 curl http://localhost:8080/api/todos
+Buscar por ID:
+
+bash
+Copiar
+Editar
 curl http://localhost:8080/api/todos/1
-curl -X PUT http://localhost:8080/api/todos/1 -H "Content-Type: application/json" -d '{"done":true}'
+Atualizar To-Do:
+
+bash
+Copiar
+Editar
+curl -X PUT http://localhost:8080/api/todos/1 \
+-H "Content-Type: application/json" \
+-d '{"done":true}'
+Deletar To-Do:
+
+bash
+Copiar
+Editar
 curl -X DELETE http://localhost:8080/api/todos/1
-```
-
-## Rodar os testes
-```bash
+🧪 Rodar os testes
+bash
+Copiar
+Editar
 mvn test
-```
+Tipos de testes inclusos:
 
-Tipos de teste inclusos:
-- **Unitário** do service com Mockito
-- **Teste de camada web** com `@WebMvcTest` e `MockMvc`
-- **Integração** com `@SpringBootTest` usando H2 em memória
+Unitário: Service com Mockito
 
-## Postman
-Importe o arquivo `postman/Api Test.postman_collection.json` para testar os endpoints.
+Camada web: @WebMvcTest e MockMvc
+
+Integração: @SpringBootTest usando H2 em memória
+
+📂 Postman
+Para testar os endpoints no Postman, importe:
+
+pgsql
+Copiar
+Editar
+postman/Api Test.postman_collection.json
+✨ Dicas extras (opcional)
+A API já vem configurada com JWT para autenticação (pasta security)
+
+Estrutura do projeto organizada por pacotes: controller, service, repository, model, dto, exception
+
